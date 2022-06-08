@@ -1,0 +1,74 @@
+.ChatIcon{
+  background: #F1AF1D;
+  height: 64px;
+  width: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 7vh;
+  right: 4vw;
+  cursor: pointer;
+}
+
+.chatWindow{
+  height: 70vh;
+  width: 20vw;
+  background: #fff;
+  position: absolute;
+  bottom: 18vh;
+  right: 4vw;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.2);
+}
+
+.chatWindow .header{
+  background: #F1AF1D;
+  height: 40%;
+  border-radius: 10px 10px 0 0;
+  padding: 10px 6%;
+  color: #fff;
+  box-shadow: 0 7px 7px 0px rgba(0,0,0,0.2);
+}
+
+.chatWindow .header h2{
+  margin: 0;
+}
+
+.logo{
+  width: 4vw;
+}
+
+.startConversationCon{
+  padding: 10px 6%;
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.2);
+  width: 80%;
+  margin: auto;
+  border-radius: 3px;
+  border-top: 3px solid;
+  margin-top: -6vh;
+  background: #fff;
+}
+
+.startConversationCon p{
+  margin-top: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.startConversationCon button{
+  background: #fff;
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: 2px solid;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.startConversationCon svg{
+  width: 13px;
+  margin-right: 7px;
+}
