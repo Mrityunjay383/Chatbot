@@ -31,7 +31,7 @@ function App() {
     <div className="App">
       <ChatIcon isActive={isActive} color1={configdata.botColor} color2={configdata.botColor2} changeState={changeState} />
 
-      <ChatWindow isActive={isActive} config={configdata} />
+      <ChatWindow baseURL={baseURL} isActive={isActive} config={configdata} />
 
     </div>
   );

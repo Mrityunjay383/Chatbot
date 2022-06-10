@@ -3,7 +3,7 @@ import { animated, useSpring } from 'react-spring'
 
 import Chatbot from "./Chatbot";
 
-function AnimatedChatWindow({config, changeChatState, chatGoingOn}) {
+function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL}) {
 
 
     const props = useSpring({
@@ -26,7 +26,7 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn}) {
           <p>{config.subTitle}</p>
         </div>
         {chatGoingOn ? (
-           <p>Chatbot</p>
+           <Chatbot baseURL={baseURL}/>
           ) : (
           <animated.div style={{...props2, borderColor: `${config.botColor2}`}} className="startConversationCon">
             <p>Start a conversation</p>
