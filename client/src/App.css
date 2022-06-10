@@ -72,3 +72,15 @@
   width: 13px;
   margin-right: 7px;
 }
+.chatbot{
+  /* margin-top: 10vh; */
+  height: 50%;
+  padding: 5vh 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+.message{
+  align-self: flex-end;
+  background-color: #F1F1F1;
+  padding: 10px 20px;
+}
