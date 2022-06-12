@@ -22,5 +22,7 @@
 }
 .iconCon span{
   font-weight: bolder;
-  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+  text-align: center;
 }
