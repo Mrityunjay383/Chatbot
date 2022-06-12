@@ -14,10 +14,9 @@ function ChatWindow({isActive, config, baseURL}) {
 
     return (
       <div>
-        {isActive ? (
-            <AnimatedChatWindow baseURL={baseURL} chatGoingOn={chatGoingOn} changeChatState={changeChatState} config={config}/>
-          ) : (<p></p>)
-        }
+
+        <AnimatedChatWindow isActive={isActive} baseURL={baseURL} chatGoingOn={chatGoingOn} changeChatState={changeChatState} config={config}/>
+
       </div>
 
     )

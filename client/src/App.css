@@ -74,13 +74,92 @@
 }
 .chatbot{
   /* margin-top: 10vh; */
-  height: 50%;
+  height: 45%;
   padding: 5vh 10px 0;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
+  /* scroll-behavior: smooth; */
 }
 .message{
   align-self: flex-end;
   background-color: #F1F1F1;
   padding: 10px 20px;
+  margin: 8px 0;
+  max-width: 60%;
+  border-radius: 5px;
+}
+.opBtnCon{
+  display: flex;
+  flex-direction: column;
+}
+.opBtnBefore{
+  min-width: 30%;
+
+  align-self: flex-end;
+  background: #F1F1F1;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 8px 0;
+}
+
+.opBtnAfter{
+  background-color: #59A669;
+  align-self: flex-start;
+  color: #fff;
+  border: 0;
+  cursor: auto;
+  padding: 5px 10px;
+}
+.queCon{
+  align-self: flex-end;
+  margin: 0px 0 15px;
+  min-width: 10%;
+  display: flex;
+
+}
+.queCon input{
+  width: 80%;
+  height: 4vh;
+}
+
+.queCon button{
+  width: 17%;
+  cursor: pointer;
+  border: 0;
+  background: #F1F1F1;
+}
+
+.queCon button:hover{
+  border: 1px solid;
+}
+
+.queAfter{
+  align-self: flex-start;
+  margin: 0px 0 15px;
+  background: #59A669;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.multiSelectCon{
+  align-self: flex-end;
+  background: #F1F1F1;
+  padding: 5px 10px;
+}
+
+.multiSelectCon button{
+  background: #59A669;
+  color: #fff;
+  border-radius: 5px;
+  border: 0;
+  padding: 5px 10px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.hold{
+  opacity: 0.5;
+  align-self: flex-end;
 }
