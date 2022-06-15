@@ -25,6 +25,9 @@ function App() {
 
   useEffect(() => {
     getData();
+    setTimeout(() => {
+      setIsActive(true)
+    }, 5000)
   }, [])
 
   return (

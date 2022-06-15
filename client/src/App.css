@@ -23,7 +23,7 @@
   box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.2);
 }
 
-.chatWindow .header{
+.chatWindow .header, .chatActiveHead{
   background: #F1AF1D;
   height: 40%;
   border-radius: 10px 10px 0 0;
@@ -32,7 +32,11 @@
   box-shadow: 0 7px 7px 0px rgba(0,0,0,0.2);
 }
 
-.chatWindow .header h2{
+.chatActiveHead{
+  height: 15%;
+}
+
+.chatWindow h2{
   margin: 0;
 }
 
@@ -73,24 +77,30 @@
   margin-right: 7px;
 }
 .chatbot{
-  /* margin-top: 10vh; */
-  height: 54%;
+  margin: 3vh 0;
+  height: 75%;
   /* height: calc(450px - (45px + 70px)); */
 
   overflow: hidden;
 }
 .chatbot div{
-  /* width: 100%;
-  height: 100%; */
+  /* width: 95%; */
+  /* height: 92%; */
+  /* overflow-x: hidden; */
   display: flex;
   flex-direction: column;
-  margin: 0 10px;
+  margin: 0 0px;
 }
+
+.chatbot div::-webkit-scrollbar {
+    width: 12px;
+}
+
 .message{
   align-self: flex-end;
   background-color: #F1F1F1;
   padding: 10px 20px;
-  margin: 8px 0;
+  margin: 8px 0px;
   max-width: 60%;
   border-radius: 5px;
 }

@@ -6,7 +6,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 
 function Chatbot({baseURL, serIsChatCompleted}) {
 
-    const [currIndex, setCurrIndex] = useState(1);
+    const [currIndex, setCurrIndex] = useState(0);
     const [currQuestion, setCurrQuestion] = useState({id: "1",textContent: "", title: "Message"});
     const [renderedEle, setRenderEle] = useState([]);
 
@@ -14,16 +14,6 @@ function Chatbot({baseURL, serIsChatCompleted}) {
     const getActualData = (input) => {
       return input.replace("<vajra-p>", "").replace("</vajra-p>", "").replace("<em>", "").replace("</em>", "");
     }
-
-    // window.setInterval(function() {
-    //   const chatbot = document.querySelector('.chatbot'); // selecting the status class
-    //   chatbot.scrollTop = chatbot.scrollHeight;
-    // }, 800);
-    //
-    // const scrollBottom = () => {
-    //   const chatbot = document.querySelector('.chatbot'); // selecting the status class
-    //       chatbot.scrollTop = chatbot.scrollHeight;
-    // }
 
 
     const userResponce = (e) => {
@@ -74,17 +64,20 @@ function Chatbot({baseURL, serIsChatCompleted}) {
     }
 
     const getResponce = async () => {
-      await axios.post(`${baseURL}/chatbot`, {currIndex}, {validateStatus: false, withCredentials: true}).then((response) => {
-        if(response.status === 200){
-          setCurrQuestion(response.data.q);
-        }else{
-          setTimeout(() => {
-            serIsChatCompleted(true);
-          }, 2000);
-          console.log("Done");
-        }
-      });
-
+      if(currIndex === 0){
+        console.log("init");
+      }else{
+        await axios.post(`${baseURL}/chatbot`, {currIndex}, {validateStatus: false, withCredentials: true}).then((response) => {
+          if(response.status === 200){
+            setCurrQuestion(response.data.q);
+          }else{
+            setTimeout(() => {
+              serIsChatCompleted(true);
+            }, 2500);
+            console.log("Done");
+          }
+        });
+      }
     }
 
     const Message = ({value}) => {
@@ -115,11 +108,27 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       )
     }
 
-    const Question = () => {
+    const Question = ({inputType}) => {
+      let placeholder;
+      if(inputType == "number"){
+        placeholder = "917838081663";
+      }else{
+        placeholder = "Type input..."
+      }
+
       return (
         <div className="queCon">
-          <input type="text" placeholder="Type input.." onKeyPress={(event) => {
-            event.key === "Enter" && nextAfterQuestion(event);
+          <input type={inputType} placeholder={placeholder} onKeyPress={(event) => {
+            if(event.key === "Enter"){
+              var phoneno = /^\d{10}$/;
+              if(inputType == "number"){
+                  if(event.target.value.match(phoneno)){
+                    nextAfterQuestion(event);
+                  }
+              }else{
+                nextAfterQuestion(event);
+              }
+            }
           }} />
         </div>
       )
@@ -127,7 +136,6 @@ function Chatbot({baseURL, serIsChatCompleted}) {
 
     const populateMessage = () => {
 
-      // console.log(currIndex, currQuestion.title);
       setRenderEle((curr) => {
         return [...curr, <Message key={currQuestion.id} value={currQuestion.textContent}/>]
       });
@@ -142,10 +150,16 @@ function Chatbot({baseURL, serIsChatCompleted}) {
           return [...curr, <Opbtn key={currQuestion.id} btnArr={currQuestion.options} />]
         });
 
-      }else if(currQuestion.title === "Question" || currQuestion.title === "Name" || currQuestion.title === "Phone"){
+      }else if(currQuestion.title === "Question" || currQuestion.title === "Name"){
 
         setRenderEle((curr) => {
-          return [...curr, <Question key={currQuestion.id}/>]
+          return [...curr, <Question key={currQuestion.id} inputType="text" inputPattern="" />]
+        });
+
+      }else if(currQuestion.title === "Phone"){
+
+        setRenderEle((curr) => {
+          return [...curr, <Question key={currQuestion.id} inputType="number" />]
         });
 
       }else if(currQuestion.title === "Multi Select"){
@@ -163,21 +177,24 @@ function Chatbot({baseURL, serIsChatCompleted}) {
     }, [currIndex]);
 
     useEffect(() => {
-
-      setRenderEle((curr) => {
-        return [...curr, <span className="hold">typing...</span>]
-      });
-
-      setTimeout(() => {
+      if(currQuestion.id != 1){
         setRenderEle((curr) => {
-
-          console.log(curr.pop());
-
-          return [...curr]
+          return [...curr, <span className="hold">typing...</span>]
         });
-        console.log("Current Array", renderedEle);
-      }, 1500);
-      setTimeout(populateMessage, 1600);
+
+        setTimeout(() => {
+          setRenderEle((curr) => {
+
+            console.log(curr.pop());
+
+            return [...curr]
+          });
+          console.log("Current Array", renderedEle);
+        }, 1300);
+        setTimeout(populateMessage, 1400);
+      }else{
+        setCurrIndex(currIndex +1)
+      }
     }, [currQuestion]);
 
     return (

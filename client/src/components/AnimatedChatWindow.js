@@ -38,11 +38,19 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
 
     return (
       <animated.div style={showStyle()} className="chatWindow">
-        <div className="header" style={{background: `${config.botColor}` }}>
-          <img className="logo" src={config.logoImage} />
-          <h2>{config.botName} Bot</h2>
-          <p>{config.subTitle}</p>
-        </div>
+        {!chatGoingOn ? (
+          <div className="header" style={{background: `${config.botColor}` }}>
+            <img className="logo" src={config.logoImage} />
+            <h2>{config.botName} Bot</h2>
+            <p>{config.subTitle}</p>
+          </div>
+        ) : (
+          <div className="chatActiveHead" style={{background: `${config.botColor}` }}>
+            <h2>{config.botName} Bot</h2>
+            <p>{config.subTitle}</p>
+          </div>
+        )}
+
         {chatGoingOn ? (
           !isChatCompleted ? (
             <Chatbot baseURL={baseURL} serIsChatCompleted={serIsChatCompleted}/>
