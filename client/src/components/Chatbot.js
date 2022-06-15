@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { renderToString } from "react-dom/server"
 import axios from "axios";
-
+import ScrollToBottom from "react-scroll-to-bottom";
 
 
 function Chatbot({baseURL, serIsChatCompleted}) {
@@ -15,10 +15,10 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       return input.replace("<vajra-p>", "").replace("</vajra-p>", "").replace("<em>", "").replace("</em>", "");
     }
 
-    window.setInterval(function() {
-      const chatbot = document.querySelector('.chatbot'); // selecting the status class
-      chatbot.scrollTop = chatbot.scrollHeight;
-    }, 800);
+    // window.setInterval(function() {
+    //   const chatbot = document.querySelector('.chatbot'); // selecting the status class
+    //   chatbot.scrollTop = chatbot.scrollHeight;
+    // }, 800);
     //
     // const scrollBottom = () => {
     //   const chatbot = document.querySelector('.chatbot'); // selecting the status class
@@ -65,7 +65,7 @@ function Chatbot({baseURL, serIsChatCompleted}) {
 
       let toBePlacedHTML = ``;
       array.map((selectedOption) => {
-        toBePlacedHTML += `<span>${selectedOption}</span><br/>`
+        toBePlacedHTML += `<span>${selectedOption}</span>`
       })
       parentCon.innerHTML = toBePlacedHTML;
 
@@ -105,10 +105,10 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       return (
         <div className="multiSelectCon">
           {optionArr.map((option, index) => {
-            return <div>
+            return <span>
               <input type="checkbox" name={option} value={option} />
               <label for={option}>{option}</label>
-            </div>
+            </span>
           })}
           <button onClick={selecteMultiChoice}>Done</button>
         </div>
@@ -118,8 +118,9 @@ function Chatbot({baseURL, serIsChatCompleted}) {
     const Question = () => {
       return (
         <div className="queCon">
-          <input type="text" placeholder="Type input.." />
-          <button onClick={nextAfterQuestion}>&#9658;</button>
+          <input type="text" placeholder="Type input.." onKeyPress={(event) => {
+            event.key === "Enter" && nextAfterQuestion(event);
+          }} />
         </div>
       )
     }
@@ -180,11 +181,12 @@ function Chatbot({baseURL, serIsChatCompleted}) {
     }, [currQuestion]);
 
     return (
-        <div className="chatbot">
-          {renderedEle.map((ele, index) => {
-            return ele;
-          })}
-        </div>
+      <ScrollToBottom className="chatbot">
+        {renderedEle.map((ele, index) => {
+          return ele;
+        })}
+      </ScrollToBottom>
+
     )
 }
 
