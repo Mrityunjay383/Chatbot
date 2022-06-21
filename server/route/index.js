@@ -5,14 +5,23 @@ const data = require('../data.json');
 const {genRanUID} = require("../genRanUID");
 
 router.get("/", (req, res) => {
-  // Setting Up cookies
-  const options = {
-    expires: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
-  };
 
-  return res.status(200).cookie('uid', genRanUID(), options).json({
-    config: data.config
-  });
+  let uidCookie = req.cookies.uid;
+
+  if(uidCookie){
+    res.status(200).json({
+      config: data.config
+    })
+  }else{
+    // Setting Up cookies
+    const options = {
+      expires: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
+    };
+
+    return res.status(200).cookie('uid', genRanUID(), options).json({
+      config: data.config
+    });
+  }
 });
 
 router.post('/chatbot', (req, res) => {
