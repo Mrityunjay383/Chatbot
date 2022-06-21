@@ -2,21 +2,34 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import ScrollToBottom from "react-scroll-to-bottom";
 
+import Message from "./botComponents/Message";
+import Opbtn from "./botComponents/Opbtn";
+import MultiSelect from "./botComponents/MultiSelect";
+import Question from "./botComponents/Question";
 
 function Chatbot({baseURL, serIsChatCompleted}) {
 
     const [currIndex, setCurrIndex] = useState(0);
     const [currQuestion, setCurrQuestion] = useState({id: "1",textContent: "", title: "Message"});
     const [renderedEle, setRenderEle] = useState([]);
+    const [resArr, setResArr] = useState([]);
 
 
     const getActualData = (input) => {
       return input.replace("<vajra-p>", "").replace("</vajra-p>", "").replace("<em>", "").replace("</em>", "");
     }
 
-
+    //Handling input from the MultiChoice
     const userResponce = (e) => {
       const conditionValue = currQuestion.conditions[e.target.value];
+
+      setResArr((curr) => {
+        return [...curr, {
+          question: getActualData(currQuestion.textContent),
+          responce: e.target.value
+        }]
+      })
+
       if(conditionValue === "next"){
 
 
@@ -30,9 +43,18 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       }
     }
 
+    //Handling Input from the Question
     const nextAfterQuestion = (e) => {
       const parentCon = e.target.parentElement;
       const value = parentCon.firstChild.value;
+
+      setResArr((curr) => {
+        return [...curr, {
+          question: getActualData(currQuestion.textContent),
+          responce: value
+        }]
+      })
+
       parentCon.classList.add("queAfter")
       parentCon.innerHTML = `<span>${value}</span>`;
 
@@ -40,21 +62,29 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       setCurrIndex(currIndex + 1);
     }
 
+    //Handling Input for MultiSelect
     const selecteMultiChoice = (e) => {
-      var array = []
+      var selectedChoices = []
       var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
 
       if(checkboxes.length > 0){
         for (var i = 0; i < checkboxes.length; i++) {
-          array.push(checkboxes[i].value)
+          selectedChoices.push(checkboxes[i].value)
         }
+
+        setResArr((curr) => {
+          return [...curr, {
+            question: getActualData(currQuestion.textContent),
+            responce: selectedChoices
+          }]
+        })
 
         const parentCon = e.target.parentElement;
         parentCon.classList.remove("multiSelectCon");
         parentCon.classList.add("queAfter");
 
         let toBePlacedHTML = ``;
-        array.map((selectedOption) => {
+        selectedChoices.map((selectedOption) => {
           return toBePlacedHTML += `<span>${selectedOption}</span>`
         })
         parentCon.innerHTML = toBePlacedHTML;
@@ -64,6 +94,8 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       }
     }
 
+
+    //Function responsible for getting the question from backend server
     const getResponce = async () => {
       if(currIndex === 0){
         console.log("init");
@@ -81,64 +113,12 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       }
     }
 
-    const Message = ({value}) => {
-      return <span className="message">{getActualData(value)}</span>
-    }
-    const Opbtn = ({btnArr}) => {
-      return (
-        <div className="opBtnCon" onClick={userResponce}>
-          {btnArr.map((btn, index) => {
-            return <button key={index} className="opBtnBefore" value={`${index}: ${btn}`}>{btn}</button>
-          })}
-        </div>
-      )
 
-    }
-
-    const MultiSelect = ({optionArr}) => {
-      return (
-        <div className="multiSelectCon">
-          {optionArr.map((option, index) => {
-            return <span>
-              <input type="checkbox" name={option} value={option} />
-              <label for={option}>{option}</label>
-            </span>
-          })}
-          <button onClick={selecteMultiChoice}>Done</button>
-        </div>
-      )
-    }
-
-    const Question = ({inputType}) => {
-      let placeholder;
-      if(inputType === "number"){
-        placeholder = "917838081663";
-      }else{
-        placeholder = "Type input..."
-      }
-
-      return (
-        <div className="queCon">
-          <input type={inputType} placeholder={placeholder} onKeyPress={(event) => {
-            if(event.key === "Enter"){
-              var phoneno = /^\d{12}$/;
-              if(inputType === "number"){
-                  if(event.target.value.match(phoneno)){
-                    nextAfterQuestion(event);
-                  }
-              }else{
-                nextAfterQuestion(event);
-              }
-            }
-          }} />
-        </div>
-      )
-    }
-
+    //Function responsible for handling perticular question from backend
     const populateMessage = () => {
 
       setRenderEle((curr) => {
-        return [...curr, <Message key={currQuestion.id} value={currQuestion.textContent}/>]
+        return [...curr, <Message key={currQuestion.id} value={currQuestion.textContent} getActualData={getActualData}/>]
       });
 
       if(currQuestion.title === "Message"){
@@ -148,25 +128,25 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       }else if(currQuestion.title === "Multi Choice"){
 
         setRenderEle((curr) => {
-          return [...curr, <Opbtn key={currQuestion.id} btnArr={currQuestion.options} />]
+          return [...curr, <Opbtn key={currQuestion.id} btnArr={currQuestion.options} userResponce={userResponce} />]
         });
 
       }else if(currQuestion.title === "Question" || currQuestion.title === "Name"){
 
         setRenderEle((curr) => {
-          return [...curr, <Question key={currQuestion.id} inputType="text" inputPattern="" />]
+          return [...curr, <Question key={currQuestion.id} inputType="text" inputPattern="" nextAfterQuestion={nextAfterQuestion}/>]
         });
 
       }else if(currQuestion.title === "Phone"){
 
         setRenderEle((curr) => {
-          return [...curr, <Question key={currQuestion.id} inputType="number" />]
+          return [...curr, <Question key={currQuestion.id} inputType="number" nextAfterQuestion={nextAfterQuestion}/>]
         });
 
       }else if(currQuestion.title === "Multi Select"){
 
         setRenderEle((curr) => {
-          return [...curr, <MultiSelect key={currQuestion.id} optionArr={currQuestion.options} />]
+          return [...curr, <MultiSelect key={currQuestion.id} optionArr={currQuestion.options} selecteMultiChoice={selecteMultiChoice}/>]
         });
 
       }
@@ -174,6 +154,7 @@ function Chatbot({baseURL, serIsChatCompleted}) {
     }
 
     useEffect(() => {
+      console.log(resArr);
       getResponce()
     }, [currIndex]);
 
@@ -186,7 +167,7 @@ function Chatbot({baseURL, serIsChatCompleted}) {
         setTimeout(() => {
           setRenderEle((curr) => {
 
-            console.log(curr.pop());
+            curr.pop();//removing typing element after fixed time
 
             return [...curr]
           });
