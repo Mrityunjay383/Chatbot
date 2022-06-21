@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { renderToString } from "react-dom/server"
 import axios from "axios";
 import ScrollToBottom from "react-scroll-to-bottom";
 
@@ -45,22 +44,24 @@ function Chatbot({baseURL, serIsChatCompleted}) {
       var array = []
       var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
 
-      for (var i = 0; i < checkboxes.length; i++) {
-        array.push(checkboxes[i].value)
+      if(checkboxes.length > 0){
+        for (var i = 0; i < checkboxes.length; i++) {
+          array.push(checkboxes[i].value)
+        }
+
+        const parentCon = e.target.parentElement;
+        parentCon.classList.remove("multiSelectCon");
+        parentCon.classList.add("queAfter");
+
+        let toBePlacedHTML = ``;
+        array.map((selectedOption) => {
+          return toBePlacedHTML += `<span>${selectedOption}</span>`
+        })
+        parentCon.innerHTML = toBePlacedHTML;
+
+
+        setCurrIndex(currIndex + 1);
       }
-
-      const parentCon = e.target.parentElement;
-      parentCon.classList.remove("multiSelectCon");
-      parentCon.classList.add("queAfter");
-
-      let toBePlacedHTML = ``;
-      array.map((selectedOption) => {
-        toBePlacedHTML += `<span>${selectedOption}</span>`
-      })
-      parentCon.innerHTML = toBePlacedHTML;
-
-
-      setCurrIndex(currIndex + 1);
     }
 
     const getResponce = async () => {
@@ -110,7 +111,7 @@ function Chatbot({baseURL, serIsChatCompleted}) {
 
     const Question = ({inputType}) => {
       let placeholder;
-      if(inputType == "number"){
+      if(inputType === "number"){
         placeholder = "917838081663";
       }else{
         placeholder = "Type input..."
@@ -121,7 +122,7 @@ function Chatbot({baseURL, serIsChatCompleted}) {
           <input type={inputType} placeholder={placeholder} onKeyPress={(event) => {
             if(event.key === "Enter"){
               var phoneno = /^\d{12}$/;
-              if(inputType == "number"){
+              if(inputType === "number"){
                   if(event.target.value.match(phoneno)){
                     nextAfterQuestion(event);
                   }
@@ -189,7 +190,6 @@ function Chatbot({baseURL, serIsChatCompleted}) {
 
             return [...curr]
           });
-          console.log("Current Array", renderedEle);
         }, 1300);
         setTimeout(populateMessage, 1400);
       }else{
