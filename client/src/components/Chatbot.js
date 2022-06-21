@@ -120,7 +120,7 @@ function Chatbot({baseURL, serIsChatCompleted}) {
         <div className="queCon">
           <input type={inputType} placeholder={placeholder} onKeyPress={(event) => {
             if(event.key === "Enter"){
-              var phoneno = /^\d{10}$/;
+              var phoneno = /^\d{12}$/;
               if(inputType == "number"){
                   if(event.target.value.match(phoneno)){
                     nextAfterQuestion(event);
