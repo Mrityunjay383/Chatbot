@@ -2,7 +2,8 @@ require("dotenv").config();
 
 const express = require('express');
 const cors = require("cors");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 // Routers
 const indexRouter = require("./route/index");
@@ -17,6 +18,7 @@ app.use(cors({
   }
 ));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 
 app.use(function(req, res, next) {

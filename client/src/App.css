@@ -78,15 +78,10 @@
 }
 .chatbot{
   margin: 3vh 0;
-  height: 75%;
-  /* height: calc(450px - (45px + 70px)); */
-
+  height: 65%;
   overflow: hidden;
 }
 .chatbot div{
-  /* width: 95%; */
-  /* height: 92%; */
-  /* overflow-x: hidden; */
   display: flex;
   flex-direction: column;
   margin: 0 0px;

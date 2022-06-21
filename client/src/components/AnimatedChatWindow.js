@@ -1,12 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import { animated, useSpring } from 'react-spring'
 
+import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
+import { db, storage } from "../firebase";
+import Cookies from 'js-cookie';
+
 import Chatbot from "./Chatbot";
 import WhatsappIcon from "./WhatsappIcon";
 
 function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isActive}) {
 
-    const [isChatCompleted, serIsChatCompleted] = useState(false);
+
+    const [isChatCompleted, setIsChatCompleted] = useState(false);
+    const [resArr, setResArr] = useState([]);
+
 
     const props = useSpring({
       from: { opacity: 0, transform: ' scale(0) translateY(-60px)' },
@@ -32,9 +40,45 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
       )
     }
 
-    useEffect(() => {
+    const formHandler = (e) => {
+      e.preventDefault();
+      const file = e.target[0].files[0];
+      uploadFile(file);
+    }
 
-    }, [isActive])
+    const uploadFile = async (file) => {
+      if(!file) return;
+
+      const storageRef = ref(storage, `/files/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on("state_changed", (snapshot) => {
+        console.log("Uploading");
+      },
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref)
+        .then((url) => {
+          setResArr((curr) => {
+            return [...curr, {
+              title: "file",
+              response: url
+            }]
+          })
+        })
+      }
+      )
+    }
+
+    useEffect(() => {
+      if(isChatCompleted){
+        console.log("Firestore");
+
+        setDoc(doc(db, "userResponse", Cookies.get('uid')), {
+          queRes: resArr
+        });
+      }
+    }, [isChatCompleted])
 
     return (
       <animated.div style={showStyle()} className="chatWindow">
@@ -53,7 +97,14 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
 
         {chatGoingOn ? (
           !isChatCompleted ? (
-            <Chatbot baseURL={baseURL} serIsChatCompleted={serIsChatCompleted}/>
+            <>
+              <Chatbot baseURL={baseURL} setIsChatCompleted={setIsChatCompleted} setResArr={setResArr}/>
+              <form onSubmit={formHandler}>
+                <input type="file"/>
+                <button type="submit">Submit</button>
+              </form>
+
+            </>
           ) : (
             <WhatsappIcon />
             )

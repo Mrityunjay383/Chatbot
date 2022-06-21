@@ -7,12 +7,11 @@ import Opbtn from "./botComponents/Opbtn";
 import MultiSelect from "./botComponents/MultiSelect";
 import Question from "./botComponents/Question";
 
-function Chatbot({baseURL, serIsChatCompleted}) {
+function Chatbot({baseURL, setIsChatCompleted, setResArr}) {
 
     const [currIndex, setCurrIndex] = useState(0);
     const [currQuestion, setCurrQuestion] = useState({id: "1",textContent: "", title: "Message"});
     const [renderedEle, setRenderEle] = useState([]);
-    const [resArr, setResArr] = useState([]);
 
 
     const getActualData = (input) => {
@@ -25,8 +24,8 @@ function Chatbot({baseURL, serIsChatCompleted}) {
 
       setResArr((curr) => {
         return [...curr, {
-          question: getActualData(currQuestion.textContent),
-          responce: e.target.value
+          title: getActualData(currQuestion.textContent),
+          response: e.target.value
         }]
       })
 
@@ -50,8 +49,8 @@ function Chatbot({baseURL, serIsChatCompleted}) {
 
       setResArr((curr) => {
         return [...curr, {
-          question: getActualData(currQuestion.textContent),
-          responce: value
+          title: getActualData(currQuestion.textContent),
+          response: value
         }]
       })
 
@@ -64,18 +63,21 @@ function Chatbot({baseURL, serIsChatCompleted}) {
 
     //Handling Input for MultiSelect
     const selecteMultiChoice = (e) => {
-      var selectedChoices = []
-      var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+      const selectedChoices = [];
+      let selectedChoicesString = "";
+      const checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
 
       if(checkboxes.length > 0){
-        for (var i = 0; i < checkboxes.length; i++) {
-          selectedChoices.push(checkboxes[i].value)
+        for (let i = 0; i < checkboxes.length; i++) {
+          selectedChoices.push(checkboxes[i].value);
+
+          i + 1 == checkboxes.length ? selectedChoicesString += `${checkboxes[i].value}` : selectedChoicesString += `${checkboxes[i].value}, `;
         }
 
         setResArr((curr) => {
           return [...curr, {
-            question: getActualData(currQuestion.textContent),
-            responce: selectedChoices
+            title: getActualData(currQuestion.textContent),
+            response: selectedChoicesString
           }]
         })
 
@@ -105,7 +107,7 @@ function Chatbot({baseURL, serIsChatCompleted}) {
             setCurrQuestion(response.data.q);
           }else{
             setTimeout(() => {
-              serIsChatCompleted(true);
+              setIsChatCompleted(true);
             }, 2500);
             console.log("Done");
           }
@@ -154,7 +156,6 @@ function Chatbot({baseURL, serIsChatCompleted}) {
     }
 
     useEffect(() => {
-      console.log(resArr);
       getResponce()
     }, [currIndex]);
 
