@@ -50,8 +50,6 @@ router.post("/sendMail", async (req, res) => {
     uid
   } = req.body;
 
-  console.log(resArr);
-
   let responceHTML = "";
 
   await resArr.forEach((res, index) => {
