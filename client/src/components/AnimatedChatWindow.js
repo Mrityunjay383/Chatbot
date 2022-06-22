@@ -81,14 +81,18 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
     }
 
     useEffect(() => {
-      if(isChatCompleted){
-        console.log("Firestore");
-        sendMail();
 
-        setDoc(doc(db, "userResponse", Cookies.get('uid')), {
-          queRes: resArr
-        });
-      }
+      console.log("Firestore");
+      // sendMail();
+
+      setDoc(doc(db, "userResponse", Cookies.get('uid')), {
+        queRes: resArr
+      });
+
+    }, [resArr])
+
+    useEffect(() => {
+      sendMail();
     }, [isChatCompleted])
 
     return (
