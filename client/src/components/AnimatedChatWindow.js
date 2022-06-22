@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from "axios";
 import { animated, useSpring } from 'react-spring'
 
 import { doc, setDoc } from "firebase/firestore";
@@ -14,7 +15,16 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
 
     const [isChatCompleted, setIsChatCompleted] = useState(false);
     const [resArr, setResArr] = useState([]);
+    const [userEmail, setUserEmail] = useState("");
 
+    const sendMail = async () => {
+      await axios.post(`${baseURL}/sendMail`, {userEmail, resArr, uid: Cookies.get('uid')}, {validateStatus: false, withCredentials: true}).then((response) => {
+        if(response.status === 200){
+          console.log(response);
+        }else{
+          console.log(response);
+      }});
+    }
 
     const props = useSpring({
       from: { opacity: 0, transform: ' scale(0) translateY(-60px)' },
@@ -73,6 +83,7 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
     useEffect(() => {
       if(isChatCompleted){
         console.log("Firestore");
+        sendMail();
 
         setDoc(doc(db, "userResponse", Cookies.get('uid')), {
           queRes: resArr
@@ -98,7 +109,7 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
         {chatGoingOn ? (
           !isChatCompleted ? (
             <>
-              <Chatbot baseURL={baseURL} setIsChatCompleted={setIsChatCompleted} setResArr={setResArr}/>
+              <Chatbot baseURL={baseURL} setUserEmail={setUserEmail} setIsChatCompleted={setIsChatCompleted} setResArr={setResArr}/>
               <form onSubmit={formHandler}>
                 <input type="file"/>
                 <button type="submit">Submit</button>

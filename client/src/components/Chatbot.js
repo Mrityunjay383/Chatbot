@@ -7,7 +7,7 @@ import Opbtn from "./botComponents/Opbtn";
 import MultiSelect from "./botComponents/MultiSelect";
 import Question from "./botComponents/Question";
 
-function Chatbot({baseURL, setIsChatCompleted, setResArr}) {
+function Chatbot({baseURL, setUserEmail, setIsChatCompleted, setResArr}) {
 
     const [currIndex, setCurrIndex] = useState(0);
     const [currQuestion, setCurrQuestion] = useState({id: "1",textContent: "", title: "Message"});
@@ -145,6 +145,12 @@ function Chatbot({baseURL, setIsChatCompleted, setResArr}) {
           return [...curr, <Question key={currQuestion.id} inputType="number" nextAfterQuestion={nextAfterQuestion}/>]
         });
 
+      }else if(currQuestion.title === "Email"){
+
+        setRenderEle((curr) => {
+          return [...curr, <Question key={currQuestion.id} inputType="email" nextAfterQuestion={nextAfterQuestion} setUserEmail={setUserEmail}/>]
+        });
+
       }else if(currQuestion.title === "Multi Select"){
 
         setRenderEle((curr) => {
@@ -178,6 +184,7 @@ function Chatbot({baseURL, setIsChatCompleted, setResArr}) {
         setCurrIndex(currIndex +1)
       }
     }, [currQuestion]);
+
 
     return (
       <ScrollToBottom className="chatbot">

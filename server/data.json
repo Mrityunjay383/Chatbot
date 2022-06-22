@@ -1,18 +1,14 @@
 {
   "config": {
-    "includeURLs": [
-      ""
-    ],
+    "active": true,
+    "includeURLs": [""],
+    "excludeURLs": [""],
+    "botPosition": "center",
+    "recurringOpen": "300",
+    "delay": "2",
+    "botColor2": "#c0e571",
     "botName": "Real Estate",
     "botColor": "#59a669",
-    "delay": "2",
-    "recurringOpen": "300",
-    "active": true,
-    "excludeURLs": [
-      ""
-    ],
-    "botPosition": "center",
-    "botColor2": "#c0e571",
     "uid": "whCb3slP43QK0FO2B5q8FtzrMuI2",
     "bid": "z6kzH3hgFwhhuwHqoQUp",
     "logoImage": "https://firebasestorage.googleapis.com/v0/b/vajra-platform.appspot.com/o/bot_icons%2Fz6kzH3hgFwhhuwHqoQUp?alt=media",
@@ -34,9 +30,7 @@
       "id": "c408b9d1-8d03-46e3-9ee4-e29a5de43063",
       "textContent": "<vajra-p>Finding it hard to select?</vajra-p>",
       "title": "Multi Choice",
-      "options": [
-        "Yes"
-      ],
+      "options": ["Yes"],
       "conditions": {
         "0: Yes": "next"
       },
@@ -55,10 +49,7 @@
       "id": "fabb31f8-8de1-42a0-af6c-8bf1913d30df",
       "textContent": "<vajra-p><em>Are you looking to </em></vajra-p>",
       "title": "Multi Choice",
-      "options": [
-        "Buy",
-        "Rent"
-      ],
+      "options": ["Buy", "Rent"],
       "conditions": {
         "0: Buy": "355674e6-f1a3-44f2-9afe-75423aa23172",
         "1: Rent": "next"
@@ -87,12 +78,7 @@
       "id": "28402627-4fea-4391-b83d-d50fa4716909",
       "textContent": "<vajra-p>How many bedrooms do you want?</vajra-p>",
       "title": "Multi Choice",
-      "options": [
-        "Just One",
-        "Two",
-        "Three",
-        "More than Three"
-      ],
+      "options": ["Just One", "Two", "Three", "More than Three"],
       "conditions": {
         "0: Just One": "next",
         "1: Two": "next",
@@ -123,11 +109,7 @@
       "id": "224f2322-1df3-49ba-9222-c10f3d6a77fd",
       "textContent": "<vajra-p><em>What is the type of property you are looking for?</em></vajra-p>",
       "title": "Multi Choice",
-      "options": [
-        "House",
-        "Apartment",
-        "Co-op"
-      ],
+      "options": ["House", "Apartment", "Co-op"],
       "conditions": {
         "0: House": "next",
         "1: Apartment": "next",
@@ -146,14 +128,9 @@
     },
     "12": {
       "id": "0720d7df-5067-4ef6-822f-b7ca6fa29a8b",
-      "textContent": "<vajra-p>Please tick the amenities you are looking for </vajra-p>",
+      "textContent": "<vajra-p>Please tick the amenities you are looking for\u00a0</vajra-p>",
       "title": "Multi Select",
-      "options": [
-        "Laundry",
-        "Pool",
-        "Pets",
-        "Outdoor Space"
-      ],
+      "options": ["Laundry", "Pool", "Pets", "Outdoor Space"],
       "conditions": {
         "0: Laundry": "next",
         "1: Pool": "next",
@@ -166,7 +143,7 @@
     },
     "13": {
       "id": "c5643ce3-a73b-477e-a6c0-67bf554d5fac",
-      "textContent": "<vajra-p>Yeah! 🙌</vajra-p>",
+      "textContent": "<vajra-p>Yeah! \ud83d\ude4c</vajra-p>",
       "title": "Message",
       "options": [],
       "conditions": {},
@@ -201,6 +178,15 @@
       "links": {}
     },
     "17": {
+      "id": "24cc915b-ce4b-4132-8f1d-175995ef22f5",
+      "textContent": "<vajra-p><em>What is your email?</em></vajra-p>",
+      "title": "Email",
+      "options": [],
+      "conditions": {},
+      "next": "next",
+      "links": {}
+    },
+    "18": {
       "id": "05c5f0d2-342a-4c71-8a28-be2232b6878a",
       "textContent": "<vajra-p>Okay. Just sit back and relax. We will contact you soon.</vajra-p>",
       "title": "Message",

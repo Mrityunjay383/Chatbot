@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Question({inputType, nextAfterQuestion}) {
+function Question({inputType, nextAfterQuestion, setUserEmail}) {
   let placeholder;
   if(inputType === "number"){
     placeholder = "917838081663";
@@ -17,7 +17,11 @@ function Question({inputType, nextAfterQuestion}) {
               if(event.target.value.match(phoneno)){
                 nextAfterQuestion(event);
               }
-          }else{
+          }else if(inputType === "email"){
+            setUserEmail(event.target.value);
+            nextAfterQuestion(event);
+          }
+          else{
             nextAfterQuestion(event);
           }
         }
