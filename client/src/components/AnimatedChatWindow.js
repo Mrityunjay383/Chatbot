@@ -50,12 +50,6 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
       )
     }
 
-    const formHandler = (e) => {
-      e.preventDefault();
-      const file = e.target[0].files[0];
-      uploadFile(file);
-    }
-
     const uploadFile = async (file) => {
       if(!file) return;
 
@@ -93,7 +87,9 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
     }, [resArr])
 
     useEffect(() => {
-      sendMail();
+      if(isChatCompleted){
+        sendMail();
+      }
     }, [isChatCompleted])
 
     return (
@@ -115,10 +111,14 @@ function AnimatedChatWindow({config, changeChatState, chatGoingOn, baseURL, isAc
           !isChatCompleted ? (
             <>
               <Chatbot baseURL={baseURL} setUserEmail={setUserEmail} setIsChatCompleted={setIsChatCompleted} setResArr={setResArr}/>
-              <form onSubmit={formHandler}>
-                <input type="file"/>
-                <button type="submit">Submit</button>
-              </form>
+              <div class="mb-3 mediaUploadCon">
+                <label style={{color: `${config.botColor}`, borderColor: `${config.botColor}`}} for="formFile" class="mediaUpload">Upload Media</label>
+                <input type="file" id="formFile" hidden onChange={(e) => {
+                  const file = e.target.files[0];
+                  console.log(file);
+                  uploadFile(file);
+                }}/>
+              </div>
 
             </>
           ) : (
