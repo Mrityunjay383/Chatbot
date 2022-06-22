@@ -1,4 +1,4 @@
-.ChatIcon{
+.ChatIcon {
   background: #F1AF1D;
   height: 64px;
   width: 64px;
@@ -12,7 +12,7 @@
   cursor: pointer;
 }
 
-.chatWindow{
+.chatWindow {
   height: 70vh;
   width: 20vw;
   background: #fff;
@@ -20,34 +20,34 @@
   bottom: 18vh;
   right: 4vw;
   border-radius: 10px;
-  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
-.chatWindow .header, .chatActiveHead{
+.chatWindow .header, .chatActiveHead {
   background: #F1AF1D;
   height: 40%;
   border-radius: 10px 10px 0 0;
   padding: 10px 6%;
   color: #fff;
-  box-shadow: 0 7px 7px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 7px 7px 0px rgba(0, 0, 0, 0.2);
 }
 
-.chatActiveHead{
+.chatActiveHead {
   height: 15%;
 }
 
-.chatWindow h2{
+.chatWindow h2 {
   margin: 0;
 }
 
-.logo{
+.logo {
   width: 4vw;
 }
 
-.startConversationCon{
+.startConversationCon {
   padding: 10px 6%;
-  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.2);
-  width: 80%;
+  box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.2);
+  width: 95%;
   margin: auto;
   border-radius: 3px;
   border-top: 3px solid;
@@ -55,13 +55,13 @@
   background: #fff;
 }
 
-.startConversationCon p{
+.startConversationCon p {
   margin-top: 0;
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.startConversationCon button{
+.startConversationCon button {
   background: #fff;
   border-radius: 20px;
   padding: 10px 20px;
@@ -72,26 +72,28 @@
   align-items: center;
 }
 
-.startConversationCon svg{
+.startConversationCon svg {
   width: 13px;
   margin-right: 7px;
 }
-.chatbot{
+
+.chatbot {
   margin: 3vh 0;
   height: 67%;
   overflow: hidden;
 }
-.chatbot div{
+
+.chatbot div {
   display: flex;
   flex-direction: column;
   margin: 0 0px;
 }
 
 .chatbot div::-webkit-scrollbar {
-    width: 12px;
+  width: 12px;
 }
 
-.message{
+.message {
   align-self: flex-end;
   background-color: #F1F1F1;
   padding: 10px 20px;
@@ -99,13 +101,14 @@
   max-width: 60%;
   border-radius: 5px;
 }
-.opBtnCon{
+
+.opBtnCon {
   display: flex;
   flex-direction: column;
 }
-.opBtnBefore{
-  min-width: 30%;
 
+.opBtnBefore {
+  min-width: 30%;
   align-self: flex-end;
   background: #F1F1F1;
   border-radius: 5px;
@@ -113,7 +116,7 @@
   margin: 8px 0;
 }
 
-.opBtnAfter{
+.opBtnAfter {
   background-color: #59A669;
   align-self: flex-start;
   color: #fff;
@@ -121,18 +124,20 @@
   cursor: auto;
   padding: 5px 10px;
 }
-.queCon{
+
+.queCon {
   align-self: flex-end;
   margin: 0px 0 15px;
   min-width: 10%;
 }
-.queCon input{
+
+.queCon input {
   width: 90%;
   height: 4vh;
   border-radius: 5px;
 }
 
-.queAfter{
+.queAfter {
   align-self: flex-start;
   margin: 0px 0 15px;
   background: #59A669;
@@ -141,13 +146,13 @@
   color: #fff;
 }
 
-.multiSelectCon{
+.multiSelectCon {
   align-self: flex-end;
   background: #F1F1F1;
   padding: 5px 10px;
 }
 
-.multiSelectCon button{
+.multiSelectCon button {
   background: #59A669;
   color: #fff;
   border-radius: 5px;
@@ -157,18 +162,19 @@
   cursor: pointer;
 }
 
-.hold{
+.hold {
   opacity: 0.5;
   align-self: flex-end;
 }
-.mediaUploadCon{
+
+.mediaUploadCon {
   /* border: 1px solid; */
   border-top: 1px solid;
   display: flex;
   align-items: center;
-
 }
-.mediaUpload{
+
+.mediaUpload {
   margin: 0;
   margin-top: 8px;
   border: 1px solid gray;
@@ -179,4 +185,38 @@
   /* font-size: 20px; */
   font-weight: bold;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1232px) {
+  .chatWindow {
+    width: 30vw;
+  }
+}
+
+@media only screen and (max-width: 822px) {
+  .chatWindow {
+    width: 40vw;
+  }
+
+  .logo {
+    width: 8vh;
+  }
+}
+
+@media only screen and (max-width: 616px) {
+  .chatWindow {
+    width: 50vw;
+  }
+}
+
+@media only screen and (max-width: 493px) {
+  .chatWindow {
+    width: 65vw;
+  }
+}
+
+@media only screen and (max-width: 382px) {
+  .chatWindow {
+    width: 80vw;
+  }
 }
