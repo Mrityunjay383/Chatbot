@@ -191,6 +191,9 @@
   .chatWindow {
     width: 30vw;
   }
+  .chatActiveHead{
+    height: 20%;
+  }
 }
 
 @media only screen and (max-width: 822px) {
@@ -211,12 +214,19 @@
 
 @media only screen and (max-width: 493px) {
   .chatWindow {
-    width: 65vw;
+    width: 92vw;
+    height: 85vh;
+    bottom: 13vh;
+  }
+  .ChatIcon{
+    width: 45px;
+    height: 45px;
+    bottom: 3vh;
   }
 }
 
-@media only screen and (max-width: 382px) {
+/* @media only screen and (max-width: 382px) {
   .chatWindow {
     width: 80vw;
   }
-}
+} */
