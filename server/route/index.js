@@ -68,7 +68,7 @@ router.post("/sendMail", async (req, res) => {
           <div style="">
             <h3>New Input from UserID (${uid})</h3>
             ${responceHTML}
-            <p>Sent from ${uid} at <a href="${creatorID}">${creatorID}</a></p>
+            <p>Sent from ${uid} at <a href="mailto:${creatorID}">${creatorID}</a></p>
           </div>
         `;
 
