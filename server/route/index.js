@@ -50,6 +50,8 @@ router.post("/sendMail", async (req, res) => {
     uid
   } = req.body;
 
+  const creatorID = "connect@vajra.ai";
+
   let responceHTML = "";
 
   await resArr.forEach((res, index) => {
@@ -66,6 +68,7 @@ router.post("/sendMail", async (req, res) => {
           <div style="">
             <h3>New Input from UserID (${uid})</h3>
             ${responceHTML}
+            <p>Sent from ${uid} at <a href="${creatorID}">${creatorID}</a></p>
           </div>
         `;
 
@@ -86,7 +89,7 @@ router.post("/sendMail", async (req, res) => {
 
   var mailOptions = {
     from: `Viraj Chatbot<${process.env.AUTHER_GMAILID}>`,
-    to: [userEmail, "connect@vajra.ai"], //Change reciving email here
+    to: [userEmail, creatorID], //Change reciving email here
     subject: "New User Input",
     text: '',
     html: output
