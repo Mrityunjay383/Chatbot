@@ -1,6 +1,6 @@
 # Chatbot Component
 
-This repository contains a versatile chatbot component suitable for various applications where a chatbot is required. With seamless integration and dynamic output functionalities, users can interact with the chatbot to achieve their objectives effectively. The chatbot supports various output types, including messages, multi-choice prompts, questions with input fields, and multi-select options. Additionally, users can upload media to Firestore directly through the chatbot interface.
+This versatile chatbot component offers seamless integration and dynamic output functionalities for diverse applications. With support for messages, multi-choice prompts, questions with input fields, and multi-select options, users can interact effectively. Plus, it enables direct media uploads to Firestore, enhancing the interactive experience
 
 ## Technologies Used
 
