@@ -40,7 +40,6 @@ The chatbot component offers the following output functionalities:
     "plan_type": "admin"
   }
 ```
-Replace "your_uid_here" and "your_bid_here" with your actual Firestore user ID and bot ID respectively
 
 ## Usage
 
